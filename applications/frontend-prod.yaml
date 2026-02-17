@@ -24,7 +24,7 @@ spec:
     targetRevision: main 
     path: charts/frontend
     helm:
-      values: |
+      values: 
         image:
           repository: uqtri/ecolink-fe
           tag: latest
