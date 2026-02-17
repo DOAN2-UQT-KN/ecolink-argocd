@@ -5,6 +5,17 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: ecolink=uqtri/ecolink-fe
+    argocd-image-updater.argoproj.io/ecolink.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/ecolink.pull-secret: pullsecret:argocd/dockerhub-secret
+
+    # vì bạn dùng Helm
+    argocd-image-updater.argoproj.io/ecolink.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/ecolink.helm.image-tag: image.tag
+
 spec:
   project: default
   
