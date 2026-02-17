@@ -32,7 +32,7 @@ jobs:
           fi
 
           yq -i '
-            .spec.source.helm.values.image.tag = strenv(TAG)
+            .spec.source.helm.valuesObject.image.tag = strenv(TAG)
           ' "$FILE"
 
       - name: Commit and push
