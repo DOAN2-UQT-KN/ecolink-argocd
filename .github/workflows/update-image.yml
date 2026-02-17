@@ -32,7 +32,7 @@ jobs:
           fi
 
           yq -i '
-            .spec.source.helm.valuesObject.image.tag = strenv(TAG)
+            .spec.source.helm.values.image.tag = strenv(TAG)
           ' "$FILE"
 
       - name: Commit and push
@@ -48,4 +48,4 @@ jobs:
           fi
 
           git commit -m "chore: update image tag to ${{ github.event.client_payload.tag }}"
-          git push
+          git push 
