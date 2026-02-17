@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ecolink-fe
-  namespace: ecolink
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -42,7 +42,7 @@ spec:
   
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: ecolink
   
   syncPolicy:
     # Manual sync for production - require explicit approval
