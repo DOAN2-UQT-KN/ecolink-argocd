@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/DOAN2-UQT-KN/helm.git
     targetRevision: main 
-    path: helm/charts/frontend
+    path: charts/frontend
     helm:
       values: |
         image:
