@@ -25,6 +25,7 @@ jobs:
         run: |
           FILE="${{ github.event.client_payload.file }}"
           TAG="${{ github.event.client_payload.tag }}"
+          export TAG
 
           if [ ! -f "$FILE" ]; then
             echo "File $FILE không tồn tại"
