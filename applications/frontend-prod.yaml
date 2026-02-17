@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: frontend-prod
+  name: ecolink-fe
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: da2
+  project: ecolink
   
   source:
     repoURL: https://github.com/DOAN2-UQT-KN/helm.git
-    targetRevision: main  # Track release branch for production
+    targetRevision: main 
     path: helm/charts/frontend
     helm:
       values: |
         image:
-          repository: uqtri/frontend
+          repository: uqtri/ecolink-fe
           tag: latest
         replicaCount: 1
         autoscaling:
@@ -46,7 +46,9 @@ spec:
   
   syncPolicy:
     # Manual sync for production - require explicit approval
-    automated: null
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
