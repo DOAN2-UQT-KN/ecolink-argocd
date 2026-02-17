@@ -35,10 +35,6 @@ spec:
               paths:
                 - path: /
                   pathType: Prefix
-          tls:
-            - secretName: frontend-tls
-              hosts:
-                - ecolink.id.vn
   
   destination:
     server: https://kubernetes.default.svc
