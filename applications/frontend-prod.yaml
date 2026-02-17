@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: ecolink
+  project: default
   
   source:
     repoURL: https://github.com/DOAN2-UQT-KN/helm.git
@@ -42,7 +42,7 @@ spec:
   
   destination:
     server: https://kubernetes.default.svc
-    namespace: da2-prod
+    namespace: argocd
   
   syncPolicy:
     # Manual sync for production - require explicit approval
