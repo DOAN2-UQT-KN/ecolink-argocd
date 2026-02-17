@@ -7,11 +7,9 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-
   destination:
     server: https://kubernetes.default.svc
     namespace: ecolink
-
   source:
     repoURL: https://github.com/DOAN2-UQT-KN/helm.git
     targetRevision: main
@@ -21,17 +19,14 @@ spec:
       valuesObject:
         image:
           repository: uqtri/ecolink-fe
-          tag: latest
-
+          tag: 20260217-194754-11a3f02
         replicaCount: 1
-
         autoscaling:
           enabled: true
           minReplicas: 1
           maxReplicas: 10
           targetCPUUtilizationPercentage: 80
           targetMemoryUtilizationPercentage: 80
-
         ingress:
           enabled: true
           className: "nginx"
@@ -42,7 +37,6 @@ spec:
               paths:
                 - path: /
                   pathType: Prefix
-
   syncPolicy:
     automated:
       prune: true
