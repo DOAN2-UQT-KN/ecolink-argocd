@@ -5,71 +5,47 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: ecolink=uqtri/ecolink-fe
-    argocd-image-updater.argoproj.io/ecolink.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/ecolink.pull-secret: pullsecret:argocd/dockerhub-secret
-
-    # vì bạn dùng Helm
-    argocd-image-updater.argoproj.io/ecolink.helm.image-name: image.repository
-    argocd-image-updater.argoproj.io/ecolink.helm.image-tag: image.tag
-
 spec:
   project: default
-  
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecolink
+
   source:
     repoURL: https://github.com/DOAN2-UQT-KN/helm.git
-    targetRevision: main 
+    targetRevision: main
     path: charts/frontend
     helm:
-      values: 
+      releaseName: ecolink-fe
+      valuesObject:
         image:
           repository: uqtri/ecolink-fe
           tag: latest
+
         replicaCount: 1
+
         autoscaling:
           enabled: true
           minReplicas: 1
           maxReplicas: 10
           targetCPUUtilizationPercentage: 80
           targetMemoryUtilizationPercentage: 80
+
         ingress:
           enabled: true
           className: "nginx"
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-prod
-            nginx.ingress.kubernetes.io/rate-limit: "500"
           hosts:
             - host: ecolink.id.vn
               paths:
                 - path: /
                   pathType: Prefix
-  
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: ecolink
-  
+
   syncPolicy:
-    # Manual sync for production - require explicit approval
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - PrunePropagationPolicy=foreground
-      - PruneLast=true
-    retry:
-      limit: 5
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 3m
-  
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
-
