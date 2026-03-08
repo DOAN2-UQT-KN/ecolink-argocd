@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/ecolink-fe
-          tag: 20260217-194754-11a3f02
+          tag: 20260218-154648-6c2c439
         replicaCount: 1
         autoscaling:
           enabled: true
