@@ -10,21 +10,30 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: ecolink
+
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: postgresql
     targetRevision: "16.x.x"
+
     helm:
       releaseName: identity-postgres
       valuesObject:
+        image:
+          registry: docker.io
+          repository: bitnami/postgresql
+          tag: 16
+
         auth:
           username: identity
-          password: "identity"   # CHANGE THIS IN PRODUCTION!
+          password: "identity"
           database: identitydb
+
         primary:
           persistence:
             enabled: true
             size: 5Gi
+
           resources:
             limits:
               cpu: 500m
@@ -32,10 +41,15 @@ spec:
             requests:
               cpu: 100m
               memory: 256Mi
-        # Service name will be: identity-postgres-postgresql.ecolink.svc.cluster.local:5432
+
+        service:
+          ports:
+            postgresql: 5432
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+
     syncOptions:
       - CreateNamespace=true
