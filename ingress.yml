@@ -5,6 +5,10 @@ metadata:
   namespace: argocd
 spec:
   ingressClassName: traefik
+  tls:
+    - hosts:
+        - argocd.ecolink.id.vn
+      secretName: ecolink-argocd-tls
   rules:
     - host: argocd.ecolink.id.vn
       http:
