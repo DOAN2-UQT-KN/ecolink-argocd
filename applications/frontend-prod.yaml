@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/ecolink-fe
-          tag: 20260308-170711-6c2c439
+          tag: 20260308-172026-6c2c439
         replicaCount: 1
         autoscaling:
           enabled: true
@@ -27,16 +27,16 @@ spec:
           maxReplicas: 10
           targetCPUUtilizationPercentage: 80
           targetMemoryUtilizationPercentage: 80
-        # ingress:
-        #   enabled: true
-        #   className: "nginx"
-        #   annotations:
-        #     cert-manager.io/cluster-issuer: letsencrypt-prod
-        #   hosts:
-        #     - host: ecolink.id.vn
-        #       paths:
-        #         - path: /
-        #           pathType: Prefix
+          # ingress:
+          #   enabled: true
+          #   className: "nginx"
+          #   annotations:
+          #     cert-manager.io/cluster-issuer: letsencrypt-prod
+          #   hosts:
+          #     - host: ecolink.id.vn
+          #       paths:
+          #         - path: /
+          #           pathType: Prefix
   syncPolicy:
     automated:
       prune: true
