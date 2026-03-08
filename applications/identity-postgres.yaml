@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: postgresql
-    targetRevision: "16.x.x"
+    targetRevision: "15.5.38"
 
     helm:
       releaseName: identity-postgres
