@@ -21,11 +21,6 @@ spec:
       valuesObject:
         architecture: standalone
 
-        image:
-          registry: docker.io
-          repository: postgres
-          tag: "16"
-
         auth:
           username: identity
           password: identity
