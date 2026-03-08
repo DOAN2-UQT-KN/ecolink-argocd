@@ -26,14 +26,14 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-prod
           hosts:
-            - host: ecolink.id.vn
+            - host: api.ecolink.id.vn
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - hosts:
-                - ecolink.id.vn
-              secretName: ecolink-tls
+                - api.ecolink.id.vn
+              secretName: ecolink-api-tls
   syncPolicy:
     automated:
       prune: true
