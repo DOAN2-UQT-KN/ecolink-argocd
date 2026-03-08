@@ -27,16 +27,16 @@ spec:
           maxReplicas: 10
           targetCPUUtilizationPercentage: 80
           targetMemoryUtilizationPercentage: 80
-        ingress:
-          enabled: true
-          className: "nginx"
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-          hosts:
-            - host: ecolink.id.vn
-              paths:
-                - path: /
-                  pathType: Prefix
+        # ingress:
+        #   enabled: true
+        #   className: "nginx"
+        #   annotations:
+        #     cert-manager.io/cluster-issuer: letsencrypt-prod
+        #   hosts:
+        #     - host: ecolink.id.vn
+        #       paths:
+        #         - path: /
+        #           pathType: Prefix
   syncPolicy:
     automated:
       prune: true
