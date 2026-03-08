@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/api-gateway
-          tag: latest
+          tag: 20260308-074104-4751278
   syncPolicy:
     automated:
       prune: true
