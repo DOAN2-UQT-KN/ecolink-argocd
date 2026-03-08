@@ -21,6 +21,11 @@ spec:
       valuesObject:
         architecture: standalone
 
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/postgresql
+          tag: "17"
+
         auth:
           username: identity
           password: identity
