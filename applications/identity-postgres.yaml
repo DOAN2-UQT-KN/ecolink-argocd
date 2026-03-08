@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: identity-postgres
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecolink
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: "16.x.x"
+    helm:
+      releaseName: identity-postgres
+      valuesObject:
+        auth:
+          username: identity
+          password: "identity"   # CHANGE THIS IN PRODUCTION!
+          database: identitydb
+        primary:
+          persistence:
+            enabled: true
+            size: 5Gi
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        # Service name will be: identity-postgres-postgresql.ecolink.svc.cluster.local:5432
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

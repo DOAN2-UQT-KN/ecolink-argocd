@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: api-gateway
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecolink
+  source:
+    repoURL: https://github.com/DOAN2-UQT-KN/helm.git
+    targetRevision: main
+    path: charts/api-gateway
+    helm:
+      releaseName: api-gateway
+      valuesObject:
+        image:
+          repository: uqtri/api-gateway
+          tag: latest
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
