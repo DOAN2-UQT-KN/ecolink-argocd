@@ -20,6 +20,23 @@ spec:
         image:
           repository: uqtri/api-gateway
           tag: 20260308-074104-4751278
+        ingress:
+          enabled: true
+          className: traefik
+
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+
+          hosts:
+            - host: ecolink.id.vn
+              paths:
+                - path: /
+                  pathType: Prefix
+
+          tls:
+            - hosts:
+                - ecolink.id.vn
+              secretName: ecolink-tls
   syncPolicy:
     automated:
       prune: true
