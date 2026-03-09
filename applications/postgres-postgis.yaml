@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: identity-postgres
+  name: postgres-postgis
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -17,21 +17,34 @@ spec:
     targetRevision: "15.5.38"
 
     helm:
-      releaseName: identity-postgres
+      releaseName: postgres-postgis
       valuesObject:
         architecture: standalone
 
         image:
           registry: docker.io
-          repository: bitnamilegacy/postgresql
-          tag: "17"
+          repository: postgis/postgis
+          tag: "17-3.5"
 
         auth:
-          username: identity
-          password: identity
-          database: identitydb
+          postgresPassword: password
 
         primary:
+          initdb:
+            scripts:
+              01-create-databases-and-postgis.sql: |
+                SELECT 'CREATE DATABASE identitydb'
+                WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'identitydb')\gexec
+
+                SELECT 'CREATE DATABASE monolith_db'
+                WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'monolith_db')\gexec
+
+                \connect identitydb
+                CREATE EXTENSION IF NOT EXISTS postgis;
+
+                \connect monolith_db
+                CREATE EXTENSION IF NOT EXISTS postgis;
+
           persistence:
             enabled: true
             size: 5Gi
