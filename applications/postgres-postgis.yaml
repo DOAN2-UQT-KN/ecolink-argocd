@@ -3,10 +3,9 @@ kind: Application
 metadata:
   name: postgres-postgis
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
+
   destination:
     server: https://kubernetes.default.svc
     namespace: ecolink
@@ -21,23 +20,15 @@ spec:
       valuesObject:
         architecture: standalone
 
-        image:
-          registry: docker.io
-          repository: postgis/postgis
-          tag: "17-3.5"
-
         auth:
           postgresPassword: password
 
         primary:
           initdb:
             scripts:
-              01-create-databases-and-postgis.sql: |
-                SELECT 'CREATE DATABASE identitydb'
-                WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'identitydb')\gexec
-
-                SELECT 'CREATE DATABASE monolith_db'
-                WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'monolith_db')\gexec
+              init.sql: |
+                CREATE DATABASE identitydb;
+                CREATE DATABASE monolith_db;
 
                 \connect identitydb
                 CREATE EXTENSION IF NOT EXISTS postgis;
@@ -49,42 +40,14 @@ spec:
             enabled: true
             size: 5Gi
 
-          resources:
-            limits:
-              cpu: 500m
-              memory: 512Mi
-            requests:
-              cpu: 100m
-              memory: 256Mi
-
         service:
+          type: ClusterIP
           ports:
             postgresql: 5432
-
-        extraDeploy:
-          - apiVersion: networking.k8s.io/v1
-            kind: Ingress
-            metadata:
-              name: postgres-postgis-ingress
-              namespace: ecolink
-            spec:
-              ingressClassName: traefik
-              rules:
-                - host: db.ecolink.id.vn
-                  http:
-                    paths:
-                      - path: /
-                        pathType: Prefix
-                        backend:
-                          service:
-                            name: postgres-postgis-postgresql
-                            port:
-                              number: 5432
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
     syncOptions:
       - CreateNamespace=true
