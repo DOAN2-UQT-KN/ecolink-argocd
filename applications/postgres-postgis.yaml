@@ -11,39 +11,33 @@ spec:
     namespace: ecolink
 
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: postgresql
-    targetRevision: "15.5.38"
+    repoURL: https://github.com/DOAN2-UQT-KN/helm.git
+    targetRevision: main
+    path: charts/postgres-postgis
 
     helm:
       releaseName: postgres-postgis
       valuesObject:
-        architecture: standalone
-
+        image:
+          repository: postgis/postgis
+          tag: "17-3.5"
         auth:
-          postgresPassword: password
-
-        primary:
-          initdb:
-            scripts:
-              init.sql: |
-                CREATE DATABASE identitydb;
-                CREATE DATABASE monolith_db;
-
-                \connect identitydb
-                CREATE EXTENSION IF NOT EXISTS postgis;
-
-                \connect monolith_db
-                CREATE EXTENSION IF NOT EXISTS postgis;
-
-          persistence:
-            enabled: true
-            size: 5Gi
-
+          password: password
+        persistence:
+          enabled: true
+          size: 5Gi
         service:
           type: ClusterIP
-          ports:
-            postgresql: 5432
+          port: 5432
+        ingress:
+          enabled: true
+          className: traefik
+          hosts:
+            - host: db.ecolink.id.vn
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls: []
 
   syncPolicy:
     automated:
