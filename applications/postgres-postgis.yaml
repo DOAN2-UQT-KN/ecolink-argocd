@@ -61,6 +61,26 @@ spec:
           ports:
             postgresql: 5432
 
+        extraDeploy:
+          - apiVersion: networking.k8s.io/v1
+            kind: Ingress
+            metadata:
+              name: postgres-postgis-ingress
+              namespace: ecolink
+            spec:
+              ingressClassName: traefik
+              rules:
+                - host: db.ecolink.id.vn
+                  http:
+                    paths:
+                      - path: /
+                        pathType: Prefix
+                        backend:
+                          service:
+                            name: postgres-postgis-postgresql
+                            port:
+                              number: 5432
+
   syncPolicy:
     automated:
       prune: true
