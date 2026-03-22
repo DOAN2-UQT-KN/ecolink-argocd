@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/identity-service
-          tag: 20260319-145000-e6349ea
+          tag: 20260322-035311-3cc5752
   syncPolicy:
     automated:
       prune: true
