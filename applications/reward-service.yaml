@@ -19,11 +19,10 @@ spec:
       valuesObject:
         image:
           repository: uqtri/reward-service
-          tag: latest
+          tag: 20260423-132057-32710d3
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
