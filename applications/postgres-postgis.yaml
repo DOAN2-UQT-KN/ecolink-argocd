@@ -23,6 +23,12 @@ spec:
           tag: "17-3.5"
         auth:
           password: password
+        databases:
+          - identitydb
+          - incidentdb
+          - rewarddb
+          - notificationdb
+          - monolith_db
         persistence:
           enabled: true
           size: 5Gi
