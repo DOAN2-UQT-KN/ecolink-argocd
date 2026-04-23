@@ -1,1 +1,1 @@
-# ecolink-argocd
+kubectl port-forward -n ecolink svc/postgres-postgis 5432:5432
