@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/notification-service
-          tag: 20260419-085829-21740bc
+          tag: 20260424-092709-ae9e9ec
   syncPolicy:
     automated:
       prune: true
