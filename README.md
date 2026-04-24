@@ -1,1 +1,1 @@
-kubectl port-forward -n ecolink svc/postgres-postgis 5432:5432
+kubectl port-forward -n ecolink svc/postgres-postgis 5432:5432 --address 0.0.0.0

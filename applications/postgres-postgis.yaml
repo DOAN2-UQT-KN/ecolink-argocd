@@ -28,9 +28,17 @@ spec:
           - incidentdb
           - rewarddb
           - notificationdb
+          - monolith_db
         persistence:
           enabled: true
-          size: 5Gi
+          size: 20Gi
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 512Mi
         service:
           type: ClusterIP
           port: 5432
