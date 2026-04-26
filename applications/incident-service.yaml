@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/incident-service
-          tag: 20260426-080056-5d3bbfa
+          tag: 20260426-084208-c0e4b35
   syncPolicy:
     automated:
       prune: true
