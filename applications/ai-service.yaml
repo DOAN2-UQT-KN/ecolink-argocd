@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ai-service
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecolink
+  source:
+    repoURL: https://github.com/DOAN2-UQT-KN/helm.git
+    targetRevision: main
+    path: charts/ai-service
+    helm:
+      releaseName: ai-service
+      valuesObject:
+        image:
+          repository: uqtri/ai-service
+          tag: latest
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
