@@ -28,6 +28,7 @@ spec:
           - incidentdb
           - rewarddb
           - notificationdb
+          - aidb
           - monolith_db
         persistence:
           enabled: true
