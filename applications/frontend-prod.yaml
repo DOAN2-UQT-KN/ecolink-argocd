@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ecolink-fe
+  name: ecolink-client
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -18,10 +18,10 @@ spec:
     path: charts/frontend
 
     helm:
-      releaseName: ecolink-fe
+      releaseName: ecolink-client
       valuesObject:
         image:
-          repository: uqtri/ecolink-fe
+          repository: uqtri/ecolink-client
           tag: 20260308-170711-6c2c439
 
         replicaCount: 1
