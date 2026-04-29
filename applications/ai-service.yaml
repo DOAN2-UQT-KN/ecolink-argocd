@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/ai-service
-          tag: 20260428-180111-e4f91c1
+          tag: 20260429-045729-01831d7
   syncPolicy:
     automated:
       prune: true
