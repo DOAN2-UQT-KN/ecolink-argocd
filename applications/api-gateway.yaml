@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/api-gateway
-          tag: 20260429-052834-35a8084
+          tag: 20260430-153301-e9410b2
         ingress:
           enabled: true
           className: traefik
