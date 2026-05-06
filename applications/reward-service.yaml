@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/reward-service
-          tag: 20260506-033608-1bb3dcb
+          tag: 20260506-041731-1c9f1d9
   syncPolicy:
     automated:
       prune: true
