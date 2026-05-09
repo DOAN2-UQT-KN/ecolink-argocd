@@ -7,54 +7,43 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-
   destination:
     server: https://kubernetes.default.svc
     namespace: ecolink
-
   source:
     repoURL: https://github.com/DOAN2-UQT-KN/helm.git
     targetRevision: main
     path: charts/frontend
-
     helm:
       releaseName: ecolink-client
       valuesObject:
         image:
           repository: uqtri/ecolink-client
-          tag: 20260308-170711-6c2c439
-
+          tag: 20260509-092818-ffaae76
         replicaCount: 1
-
         autoscaling:
           enabled: true
           minReplicas: 1
           maxReplicas: 10
           targetCPUUtilizationPercentage: 80
           targetMemoryUtilizationPercentage: 80
-
         ingress:
           enabled: true
           className: traefik
-
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-prod
-
           hosts:
             - host: ecolink.id.vn
               paths:
                 - path: /
                   pathType: Prefix
-
           tls:
             - hosts:
                 - ecolink.id.vn
               secretName: ecolink-tls
-
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
     syncOptions:
       - CreateNamespace=true
