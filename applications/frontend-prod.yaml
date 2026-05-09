@@ -21,7 +21,6 @@ spec:
           repository: uqtri/ecolink-client
           tag: 20260509-092818-ffaae76
         replicaCount: 1
-<<<<<<< HEAD
 
         service:
           targetPort: 3000
@@ -44,8 +43,6 @@ spec:
           timeoutSeconds: 3
           failureThreshold: 3
 
-=======
->>>>>>> a91f098d8be87b575de0570c35c589d2a36c3951
         autoscaling:
           enabled: true
           minReplicas: 1
