@@ -19,11 +19,10 @@ spec:
       valuesObject:
         image:
           repository: uqtri/ecolink-client
-          tag: 20260509-201644-4a37c3f
+          tag: 20260510-121854-6962d20
         replicaCount: 1
         service:
           targetPort: 3000
-
         startupProbe:
           httpGet:
             path: /
@@ -31,7 +30,6 @@ spec:
           periodSeconds: 15
           timeoutSeconds: 15
           failureThreshold: 60
-
         livenessProbe:
           httpGet:
             path: /
@@ -40,7 +38,6 @@ spec:
           periodSeconds: 15
           timeoutSeconds: 15
           failureThreshold: 5
-
         readinessProbe:
           httpGet:
             path: /
@@ -49,7 +46,6 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 15
           failureThreshold: 6
-
         autoscaling:
           enabled: true
           minReplicas: 1
