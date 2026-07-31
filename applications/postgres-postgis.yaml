@@ -21,8 +21,9 @@ spec:
         image:
           repository: postgis/postgis
           tag: "17-3.5"
+        # Must match service charts' decoded DATABASE password (URL-encoded as hacktaonuadi%40)
         auth:
-          password: password
+          password: "hacktaonuadi@"
         databases:
           - identitydb
           - incidentdb
@@ -35,24 +36,19 @@ spec:
           size: 20Gi
         resources:
           limits:
-            cpu: 500m
-            memory: 1Gi
+            cpu: "2"
+            memory: 2Gi
           requests:
-            cpu: 100m
-            memory: 512Mi
+            cpu: 250m
+            memory: 1Gi
         service:
           type: ClusterIP
           port: 5432
         ingress:
           enabled: false
+        # In-cluster only — SG does not expose 5433; services use postgres-postgis:5432
         tcpIngress:
-          enabled: true
-          entryPoints:
-            - postgresql
-          hostSNI: db.ecolink.id.vn
-          tls:
-            enabled: false
-            passthrough: false
+          enabled: false
 
   syncPolicy:
     automated:

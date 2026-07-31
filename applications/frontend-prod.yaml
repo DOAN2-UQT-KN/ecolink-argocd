@@ -50,12 +50,16 @@ spec:
           timeoutSeconds: 15
           failureThreshold: 6
 
+        # Single-node k3s: no HPA template in frontend chart
         autoscaling:
-          enabled: true
-          minReplicas: 1
-          maxReplicas: 10
-          targetCPUUtilizationPercentage: 80
-          targetMemoryUtilizationPercentage: 80
+          enabled: false
+        resources:
+          limits:
+            cpu: "1"
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
         ingress:
           enabled: true
           className: traefik
