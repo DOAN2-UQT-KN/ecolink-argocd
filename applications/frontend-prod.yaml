@@ -19,7 +19,7 @@ spec:
       valuesObject:
         image:
           repository: uqtri/ecolink-client
-          tag: 20260820-044922-a215bda
+          tag: 20260820-135625-acc8f6e
         replicaCount: 1
         service:
           targetPort: 3000
